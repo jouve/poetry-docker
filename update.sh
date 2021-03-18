@@ -16,7 +16,7 @@ $SUDO docker run \
   $cache \
   --volume $PWD:/srv \
   --workdir /srv \
-  alpine:3.13.0 sh -x -c "
+  alpine:3.13.2 sh -x -c "
 set -e
 apk add --no-cache alpine-conf
 setup-apkcache /var/cache/apk
