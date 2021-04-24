@@ -34,5 +34,5 @@ shellingham==1.4.0; python_version >= "2.7" and python_version < "3.0" and pytho
 six==1.15.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 tomlkit==0.7.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 urllib3==1.26.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
-virtualenv==20.4.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
+virtualenv==20.4.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 webencodings==0.5.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
