@@ -19,7 +19,7 @@ RUN \
     ; \
     /usr/share/poetry/bin/pip install -r /usr/share/poetry/requirements.txt; \
     ln -s /usr/share/poetry/bin/poetry /usr/local/bin/poetry; \
-    apk add --no-network --virtual .run-deps $( \
+    apk add --no-network --virtual .run-deps python3 $( \
         scanelf --needed --nobanner --format '%n#p' --recursive /usr/share/poetry \
         | tr ',' '\n' \
         | sed 's/^/so:/' \
