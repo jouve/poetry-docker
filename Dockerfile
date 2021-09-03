@@ -17,6 +17,7 @@ RUN \
         openssl-dev \
         python3-dev \
     ; \
+    ln -s /usr/bin/python3 /usr/bin/python; \
     /usr/share/poetry/bin/pip install -r /usr/share/poetry/requirements.txt; \
     ln -s /usr/share/poetry/bin/poetry /usr/local/bin/poetry; \
     apk add --no-network --virtual .run-deps python3 $( \
