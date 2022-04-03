@@ -18,7 +18,7 @@ $SUDO docker run \
   $cache \
   --volume $PWD:/srv \
   --workdir /srv \
-  jouve/poetry:1.1.13-alpine3.15.0 sh -x -c '
+  jouve/poetry:1.1.13-alpine3.15.1 sh -x -c '
 poetry lock
 poetry export --without-hashes > poetry.txt
 '
