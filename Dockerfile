@@ -1,8 +1,7 @@
-FROM alpine:3.16.0
+FROM alpine:3.16.3
 
-COPY poetry.txt /usr/share/poetry/requirements.txt
-
-RUN set -e; \
+RUN --mount=target=/requirements \
+    set -e; \
     apk add --no-cache --virtual .build-deps \
         build-base \
         libffi-dev \
@@ -10,8 +9,8 @@ RUN set -e; \
     ; \
     ln -s /usr/bin/python3 /usr/bin/python; \
     python3 -m venv /usr/share/poetry; \
-    /usr/share/poetry/bin/pip install --no-cache-dir pip==22.1.2 setuptools==63.1.0 wheel==0.37.1; \
-    /usr/share/poetry/bin/pip install --no-cache-dir --requirement /usr/share/poetry/requirements.txt; \
+    /usr/share/poetry/bin/pip install --no-cache-dir --requirement /requirements/pip.txt; \
+    /usr/share/poetry/bin/pip install --no-cache-dir --requirement /requirements/poetry.txt; \
     ln -s /usr/share/poetry/bin/poetry /usr/local/bin/poetry; \
     apk add --no-cache --virtual .run-deps python3 $( \
         scanelf --needed --nobanner --format '%n#p' --recursive /usr/share/poetry \
@@ -20,5 +19,4 @@ RUN set -e; \
         | sort -u \
         | grep -v libgcc_s \
     ); \
-    apk del --no-cache .build-deps; \
-    rm /tmp/*
+    apk del --no-cache .build-deps

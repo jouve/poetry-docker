@@ -1,24 +1,11 @@
 #!/bin/bash -x
 
-if [ "$(basename "$(readlink -f "$(which docker)")")" != podman ]; then
-  if ! test -w /var/run/docker.sock; then
-    SUDO=sudo
-  else
-    SUDO=
-  fi
-fi
-
-if docker container inspect cache-cache-1 &>/dev/null; then
-  cache=--volumes-from=cache-cache-1
-else
-  cache=
-fi
-
-$SUDO docker run \
-  $cache \
+sudo nerdctl run \
   --volume $PWD:/srv \
   --workdir /srv \
-  jouve/poetry:1.1.14-alpine3.16.0 sh -x -c '
+  jouve/poetry:1.2.2-alpine3.16.3 sh -x -c '
+poetry run pip install --upgrade pip setuptools wheel
+poetry run pip freeze --all > pip.txt
 poetry lock
 poetry export --without-hashes > poetry.txt
 '
