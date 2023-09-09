@@ -1,4 +1,4 @@
-FROM alpine:3.18.0
+FROM alpine:3.18.3
 
 RUN --mount=target=/requirements \
     set -e; \
