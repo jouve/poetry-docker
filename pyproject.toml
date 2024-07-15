@@ -5,8 +5,9 @@ description = ""
 authors = ["Cyril Jouve <jv.cyril@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 poetry = "*"
+poetry-plugin-export = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
