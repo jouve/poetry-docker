@@ -1,20 +1,17 @@
-FROM alpine:3.20.3
+FROM python:3.13.1-bookworm AS build
 
-RUN --mount=target=/requirements \
-    set -e; \
-    apk add --no-cache --virtual .build-deps \
-        build-base \
-        libffi-dev \
-        python3-dev \
-    ; \
-    python3 -m venv /usr/share/poetry; \
-    /usr/share/poetry/bin/pip install --no-cache-dir --requirement /requirements/pip.txt; \
-    /usr/share/poetry/bin/pip install --no-cache-dir --requirement /requirements/poetry.txt; \
-    ln -s /usr/share/poetry/bin/poetry /usr/local/bin/poetry; \
-    apk add --no-cache --virtual .run-deps python3 $( \
-        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
-        | tr ',' '\n' \
-        | sort -u \
-        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-    ); \
-    apk del --no-cache .build-deps
+SHELL [ "bash", "-e", "-o", "pipefail", "-c" ]
+
+COPY pip.txt /requirements.txt
+RUN python3 -m venv /opt/poetry; \
+    /opt/poetry/bin/pip install --upgrade -r /requirements.txt
+
+COPY poetry.txt /requirements.txt
+RUN /opt/poetry/bin/pip install --upgrade -r /requirements.txt
+
+FROM python:3.13.1-bookworm
+
+SHELL [ "bash", "-e", "-o", "pipefail", "-c" ]
+
+COPY --from=build /opt/poetry /opt/poetry
+RUN ln -s /opt/poetry/bin/poetry /usr/local/bin

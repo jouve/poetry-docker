@@ -1,0 +1,20 @@
+{
+	"name": "Debian",
+	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils": {
+			"configureZshAsDefaultShell": true
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker": {},
+		"ghcr.io/devcontainers/features/github-cli": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.vscode-github-actions",
+				"timonwong.shellcheck",
+				"tamasfe.even-better-toml"
+			]
+		}
+	}
+}
